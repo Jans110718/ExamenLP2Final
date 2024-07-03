@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es-PE" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Empleado</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Empleado - Editar</h1>
+        <a href="buscarEmpleado" class="btn btn-danger mb-3">Regresar</a>
+        <hr>
+        <form method="post" action="editarEmpleado">
+            <table class="table table-bordered">
+                <tr>
+                    <td><label for="txtId">CODIGO</label></td>
+                    <td><input type="text" id="txtId" class="form-control" name="id" th:value="${empleado.id_empleado}" readonly></td>
+                </tr>
+                <tr>
+                    <td><label for="txtNombre">NOMBRE</label></td>
+                    <td><input type="text" id="txtNombre" class="form-control" name="nombre" th:value="${empleado.nombre}"></td>
+                </tr>
+                <tr>
+                    <td><label for="txtApellido">APELLIDO</label></td>
+                    <td><input type="text" id="txtApellido" class="form-control" name="apellido" th:value="${empleado.apellido}"></td>
+                </tr>
+                <tr>
+                    <td><label for="txtSalario">SALARIO</label></td>
+                    <td><input type="text" id="txtSalario" class="form-control" name="salario" th:value="${empleado.salario}"></td>
+                </tr>
+                <tr>
+                    <td><label for="cmbDepartamento">DEPARTAMENTO</label></td>
+                    <td>
+                        <select class="form-control" id="cmbDepartamento" name="departamento">
+                            <option th:each="departamento : ${departamentos}"
+                                    th:value="${departamento.id_departamento}"
+                                    th:text="${departamento.nombre}"
+                                    th:attr="selected=${departamento.id_departamento == empleado.departamento.id_departamento}">
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" class="btn btn-primary" value="Guardar"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script th:if="${exito}">
+	    jQuery(document).ready(function() {
+	        Swal.fire({
+	            icon: 'success',
+	            title: '¡Empleado editado exitosamente!',
+	            showConfirmButton: true,
+	        });
+			
+	    });
+	</script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

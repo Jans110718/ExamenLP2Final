@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es-PE" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestionar Empleados</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Empleados</h1>
+		<a href="agregarEmpleado" class="btn btn-primary mb-3">Agregar nuevo empleado</a>
+		<a href="." class="btn btn-danger mb-3">Regresar</a>
+
+        <hr>
+        
+        <!-- Formulario de búsqueda -->
+        <form method="post" action="buscarEmpleado">
+            <div class="form-group row">
+                <label for="filtro" class="col-sm-2 col-form-label">Filtrar por:</label>
+                <div class="col-sm-4">
+					<select class="form-control" id="filtro" name="filtro">
+					                       <option value="nombre" th:selected="${filtro == 'nombre'}">Nombre</option>
+					                       <option value="apellido" th:selected="${filtro == 'apellido'}">Apellido</option>
+					                       <option value="departamento" th:selected="${filtro == 'departamento'}">Departamento</option>
+					  </select>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="txtBuscar" name="txtBuscar" th:value="${nombreBuscado}" placeholder="Ingrese término de búsqueda" required>
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </div>
+        </form>
+        
+        <!-- Tabla de empleados -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Salario</th>
+                    <th>Departamento</th>
+                    <th colspan="2">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Iteración sobre la lista de empleados -->
+                <tr th:each="empleado : ${listaEmpleados}">
+                    <td th:text="${empleado.getId_empleado()}"></td>
+                    <td th:text="${empleado.getNombre()}"></td>
+                    <td th:text="${empleado.getApellido()}"></td>
+                    <td th:text="${empleado.getSalario()}"></td>
+                    <td th:text="${empleado.getDepartamento().getNombre()}"></td>
+                    <td><a th:href="${'editarEmpleado?id='+empleado.id_empleado}">Editar</a></td>
+                    <td><a th:href="${'eliminarEmpleado?id='+empleado.id_empleado}">Eliminar</a></td>
+                </tr>
+                <!-- Mensaje si no se encontraron empleados -->
+                <tr th:if="${#lists.isEmpty(listaEmpleados)}">
+                    <td colspan="7" class="text-center">No se encontraron empleados</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

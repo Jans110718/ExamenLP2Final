@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es-PE" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Nuevos Empleados</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Empleado - Agregar</h1>
+    <hr>
+    <form method="post" action="agregarEmpleado">
+        <div class="row">
+            <div class="col-md-6">
+				<a href="buscarEmpleado" class="btn btn-danger mb-3">Regresar</a>
+                <div class="form-group">
+                    <label for="txtNombre">NOMBRE</label>
+                    <input type="text" class="form-control" id="txtNombre" name="nombre">
+                </div>
+                <div class="form-group">
+                    <label for="txtApellido">APELLIDO</label>
+                    <input type="text" class="form-control" id="txtApellido" name="apellido">
+                </div>
+                <div class="form-group">
+                    <label for="txtSalario">SALARIO</label>
+                    <input type="text" class="form-control" id="txtSalario" name="salario">
+                </div>
+                <div class="form-group">
+                    <label for="cmbDepartamento">DEPARTAMENTO</label>
+                    <select class="form-control" id="cmbDepartamento" name="departamento">
+                        <option th:each="departamento : ${departamentos}" th:value="${departamento.id_departamento}" th:text="${departamento.nombre}"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+</div>
+
+<!-- jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script th:if="${exito}">
+	    jQuery(document).ready(function() {
+	        Swal.fire({
+	            icon: 'success',
+	            title: '¡Empleado registrado exitosamente!',
+	            showConfirmButton: true,
+	        });
+			
+	    });
+	</script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
